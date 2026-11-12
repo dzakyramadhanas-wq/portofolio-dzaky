@@ -130,6 +130,74 @@
       pointer-events: none;
     }
 
+    /* Animasi 3D Tilted Dual-Row Glass Marquee */
+    @keyframes marqueeLeft3D {
+      0% { transform: translate3d(0, 0, 0); }
+      100% { transform: translate3d(-50%, 0, 0); }
+    }
+
+    @keyframes marqueeRight3D {
+      0% { transform: translate3d(-50%, 0, 0); }
+      100% { transform: translate3d(0, 0, 0); }
+    }
+
+    .marquee-3d-stage {
+      perspective: 1100px;
+      position: relative;
+      overflow: hidden;
+      mask-image: linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%);
+      -webkit-mask-image: linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%);
+    }
+
+    .marquee-3d-plane {
+      transform: rotateX(14deg) rotateZ(-1.5deg);
+      transform-style: preserve-3d;
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .marquee-3d-stage:hover .marquee-3d-plane {
+      transform: rotateX(4deg) rotateZ(0deg);
+    }
+
+    .marquee-track-left {
+      display: flex;
+      width: max-content;
+      will-change: transform;
+      animation: marqueeLeft3D 38s linear infinite;
+    }
+
+    .marquee-track-right {
+      display: flex;
+      width: max-content;
+      will-change: transform;
+      animation: marqueeRight3D 42s linear infinite;
+    }
+
+    .marquee-3d-stage:hover .marquee-track-left,
+    .marquee-3d-stage:hover .marquee-track-right {
+      animation-play-state: paused;
+    }
+
+    .tech-pill-3d {
+      background: linear-gradient(145deg, rgba(30, 41, 59, 0.85), rgba(15, 23, 42, 0.95));
+      border: 1px solid rgba(148, 163, 184, 0.15);
+      border-top: 1px solid rgba(255, 255, 255, 0.22);
+      box-shadow: 
+        0 10px 20px -5px rgba(0, 0, 0, 0.65),
+        inset 0 1px 1px rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease, border-color 0.35s ease;
+    }
+
+    .tech-pill-3d:hover {
+      transform: translateY(-4px) translateZ(18px) scale(1.05);
+      border-color: rgba(2, 132, 199, 0.6);
+      box-shadow: 
+        0 16px 28px -6px rgba(0, 0, 0, 0.8),
+        0 0 18px rgba(2, 132, 199, 0.35),
+        inset 0 1px 2px rgba(255, 255, 255, 0.3);
+    }
+
     /* Print Optimization */
     @media print {
       .no-print { display: none !important; }
@@ -287,6 +355,96 @@
         </a>
       </div>
     </section>
+
+    <!-- 3D TILTED GLASS TECH STACK MARQUEE -->
+    <div class="marquee-3d-stage py-6 fade-up">
+      <!-- Cahaya Ambient Halus di Belakang Pita 3D -->
+      <div class="absolute inset-x-1/4 top-1/2 -translate-y-1/2 h-20 bg-brand-500/15 blur-2xl rounded-full pointer-events-none"></div>
+
+      <div class="marquee-3d-plane space-y-3.5">
+        
+        <!-- BARIS 1: Bergerak ke Kiri (Programming Languages & Web) -->
+        <div class="marquee-track-left flex items-center gap-3.5">
+          <!-- Set 1A -->
+          <div class="flex items-center gap-3.5 pr-3.5">
+            <span class="tech-pill-3d inline-flex items-center gap-2.5 px-4 py-2.5 rounded-xl text-xs font-semibold text-slate-200">
+              <i class="fab fa-java text-orange-400 text-base"></i> Java OOP
+            </span>
+            <span class="tech-pill-3d inline-flex items-center gap-2.5 px-4 py-2.5 rounded-xl text-xs font-semibold text-slate-200">
+              <i class="fab fa-python text-sky-400 text-base"></i> Python
+            </span>
+            <span class="tech-pill-3d inline-flex items-center gap-2.5 px-4 py-2.5 rounded-xl text-xs font-semibold text-slate-200">
+              <i class="fab fa-html5 text-orange-500 text-base"></i> HTML5
+            </span>
+            <span class="tech-pill-3d inline-flex items-center gap-2.5 px-4 py-2.5 rounded-xl text-xs font-semibold text-slate-200">
+              <i class="fab fa-css3-alt text-blue-400 text-base"></i> Tailwind CSS
+            </span>
+            <span class="tech-pill-3d inline-flex items-center gap-2.5 px-4 py-2.5 rounded-xl text-xs font-semibold text-slate-200">
+              <i class="fab fa-js text-yellow-400 text-base"></i> JavaScript
+            </span>
+          </div>
+          <!-- Set 1B (Duplikat untuk looping mulus) -->
+          <div class="flex items-center gap-3.5 pr-3.5" aria-hidden="true">
+            <span class="tech-pill-3d inline-flex items-center gap-2.5 px-4 py-2.5 rounded-xl text-xs font-semibold text-slate-200">
+              <i class="fab fa-java text-orange-400 text-base"></i> Java OOP
+            </span>
+            <span class="tech-pill-3d inline-flex items-center gap-2.5 px-4 py-2.5 rounded-xl text-xs font-semibold text-slate-200">
+              <i class="fab fa-python text-sky-400 text-base"></i> Python
+            </span>
+            <span class="tech-pill-3d inline-flex items-center gap-2.5 px-4 py-2.5 rounded-xl text-xs font-semibold text-slate-200">
+              <i class="fab fa-html5 text-orange-500 text-base"></i> HTML5
+            </span>
+            <span class="tech-pill-3d inline-flex items-center gap-2.5 px-4 py-2.5 rounded-xl text-xs font-semibold text-slate-200">
+              <i class="fab fa-css3-alt text-blue-400 text-base"></i> Tailwind CSS
+            </span>
+            <span class="tech-pill-3d inline-flex items-center gap-2.5 px-4 py-2.5 rounded-xl text-xs font-semibold text-slate-200">
+              <i class="fab fa-js text-yellow-400 text-base"></i> JavaScript
+            </span>
+          </div>
+        </div>
+
+        <!-- BARIS 2: Bergerak ke Kanan (Systems, Database & Creative) -->
+        <div class="marquee-track-right flex items-center gap-3.5">
+          <!-- Set 2A -->
+          <div class="flex items-center gap-3.5 pr-3.5">
+            <span class="tech-pill-3d inline-flex items-center gap-2.5 px-4 py-2.5 rounded-xl text-xs font-semibold text-slate-200">
+              <i class="fas fa-database text-emerald-400 text-base"></i> MySQL / MariaDB
+            </span>
+            <span class="tech-pill-3d inline-flex items-center gap-2.5 px-4 py-2.5 rounded-xl text-xs font-semibold text-slate-200">
+              <i class="fab fa-linux text-slate-200 text-base"></i> Linux OS
+            </span>
+            <span class="tech-pill-3d inline-flex items-center gap-2.5 px-4 py-2.5 rounded-xl text-xs font-semibold text-slate-200">
+              <i class="fas fa-microchip text-indigo-400 text-base"></i> Digital Logic
+            </span>
+            <span class="tech-pill-3d inline-flex items-center gap-2.5 px-4 py-2.5 rounded-xl text-xs font-semibold text-slate-200">
+              <i class="fab fa-git-alt text-rose-500 text-base"></i> Git & GitHub
+            </span>
+            <span class="tech-pill-3d inline-flex items-center gap-2.5 px-4 py-2.5 rounded-xl text-xs font-semibold text-slate-200">
+              <i class="fas fa-video text-purple-400 text-base"></i> Content Production
+            </span>
+          </div>
+          <!-- Set 2B (Duplikat untuk looping mulus) -->
+          <div class="flex items-center gap-3.5 pr-3.5" aria-hidden="true">
+            <span class="tech-pill-3d inline-flex items-center gap-2.5 px-4 py-2.5 rounded-xl text-xs font-semibold text-slate-200">
+              <i class="fas fa-database text-emerald-400 text-base"></i> MySQL / MariaDB
+            </span>
+            <span class="tech-pill-3d inline-flex items-center gap-2.5 px-4 py-2.5 rounded-xl text-xs font-semibold text-slate-200">
+              <i class="fab fa-linux text-slate-200 text-base"></i> Linux OS
+            </span>
+            <span class="tech-pill-3d inline-flex items-center gap-2.5 px-4 py-2.5 rounded-xl text-xs font-semibold text-slate-200">
+              <i class="fas fa-microchip text-indigo-400 text-base"></i> Digital Logic
+            </span>
+            <span class="tech-pill-3d inline-flex items-center gap-2.5 px-4 py-2.5 rounded-xl text-xs font-semibold text-slate-200">
+              <i class="fab fa-git-alt text-rose-500 text-base"></i> Git & GitHub
+            </span>
+            <span class="tech-pill-3d inline-flex items-center gap-2.5 px-4 py-2.5 rounded-xl text-xs font-semibold text-slate-200">
+              <i class="fas fa-video text-purple-400 text-base"></i> Content Production
+            </span>
+          </div>
+        </div>
+
+      </div>
+    </div>
 
     <!-- 2. TENTANG SAYA -->
     <section id="about" class="space-y-4 fade-up">
