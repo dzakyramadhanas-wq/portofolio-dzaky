@@ -239,6 +239,126 @@
       animation: successPop 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.44s both;
     }
 
+    /* Animasi Latar Belakang Profil: Flowing Liquid Waves & Ambient Particles */
+    @keyframes waveFlowSlow {
+      0% {
+        transform: translateX(0) translateZ(0) scaleY(1);
+      }
+      50% {
+        transform: translateX(-25%) translateZ(0) scaleY(1.12);
+      }
+      100% {
+        transform: translateX(-50%) translateZ(0) scaleY(1);
+      }
+    }
+
+    @keyframes waveFlowReverse {
+      0% {
+        transform: translateX(-50%) translateZ(0) scaleY(1.05);
+      }
+      50% {
+        transform: translateX(-25%) translateZ(0) scaleY(0.92);
+      }
+      100% {
+        transform: translateX(0) translateZ(0) scaleY(1.05);
+      }
+    }
+
+    @keyframes dewParticleFloat {
+      0% {
+        transform: translateY(20px) scale(0.8);
+        opacity: 0;
+      }
+      35% {
+        opacity: 0.65;
+      }
+      75% {
+        opacity: 0.4;
+      }
+      100% {
+        transform: translateY(-75px) scale(1.15);
+        opacity: 0;
+      }
+    }
+
+    .hero-wave-layer-1 {
+      animation: waveFlowSlow 16s ease-in-out infinite;
+      will-change: transform;
+    }
+
+    .hero-wave-layer-2 {
+      animation: waveFlowReverse 22s ease-in-out infinite;
+      will-change: transform;
+    }
+
+    .hero-dew-particle {
+      animation: dewParticleFloat var(--dur, 8s) ease-in-out infinite;
+      animation-delay: var(--delay, 0s);
+      will-change: transform, opacity;
+    }
+
+    .hero-bg-fade-mask {
+      -webkit-mask-image: radial-gradient(ellipse at center, black 45%, transparent 82%);
+      mask-image: radial-gradient(ellipse at center, black 45%, transparent 82%);
+    }
+
+    /* Efek Foto Profil Tetesan Air 3D & Tepi Blur Menyatu (Feathered Edge) */
+    @keyframes waterDropMorph {
+      0%, 100% {
+        border-radius: 54% 46% 48% 52% / 52% 54% 46% 48%;
+        transform: translateY(0px) scale(1);
+      }
+      33% {
+        border-radius: 48% 52% 55% 45% / 47% 49% 51% 53%;
+        transform: translateY(-4px) scale(1.015);
+      }
+      66% {
+        border-radius: 52% 48% 45% 55% / 54% 46% 54% 46%;
+        transform: translateY(-2px) scale(0.99);
+      }
+    }
+
+    @keyframes waterRippleOut {
+      0% {
+        transform: scale(0.92);
+        opacity: 0.45;
+      }
+      100% {
+        transform: scale(1.22);
+        opacity: 0;
+      }
+    }
+
+    .water-drop-container {
+      animation: waterDropMorph 7s ease-in-out infinite;
+      will-change: border-radius, transform;
+    }
+
+    /* Membuat bagian tepi foto memudar halus (blur/feathered) menyatu ke latar */
+    .water-drop-feathered-photo {
+      -webkit-mask-image: radial-gradient(circle, rgba(0, 0, 0, 1) 52%, rgba(0, 0, 0, 0.55) 68%, rgba(0, 0, 0, 0) 76%);
+      mask-image: radial-gradient(circle, rgba(0, 0, 0, 1) 52%, rgba(0, 0, 0, 0.55) 68%, rgba(0, 0, 0, 0) 76%);
+    }
+
+    /* Efek cembung bening 3D seperti tetesan air */
+    .water-drop-3d-sheen {
+      box-shadow:
+        inset 0 6px 14px rgba(255, 255, 255, 0.28),
+        inset 0 -8px 16px rgba(15, 23, 42, 0.65),
+        inset 0 0 18px rgba(56, 189, 248, 0.25);
+    }
+
+    .water-drop-ripple {
+      animation: waterRippleOut 4.5s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+    }
+
+    /* Versi Mini Foto Tetesan Air di Navbar */
+    .water-drop-nav-mini {
+      animation: waterDropMorph 7s ease-in-out infinite;
+      -webkit-mask-image: radial-gradient(circle, rgba(0, 0, 0, 1) 50%, rgba(0, 0, 0, 0.45) 68%, rgba(0, 0, 0, 0) 78%);
+      mask-image: radial-gradient(circle, rgba(0, 0, 0, 1) 50%, rgba(0, 0, 0, 0.45) 68%, rgba(0, 0, 0, 0) 78%);
+    }
+
     /* Print Optimization */
     @media print {
       .no-print { display: none !important; }
@@ -258,12 +378,18 @@
 
     <!-- Konten Tengah Pembuka -->
     <div class="relative z-10 flex flex-col items-center text-center px-6 space-y-5 intro-content">
-      <!-- Foto Lingkaran dengan Cincin Berdenyut -->
-      <div class="relative">
-        <div class="w-24 h-24 rounded-full overflow-hidden border-2 border-brand-500 shadow-[0_0_30px_rgba(2,132,199,0.5)]">
-          <img src="gambar.jpeg" alt="Dzaky Ramadhan" class="w-full h-full object-cover">
+      
+      <!-- GANTI BAGIAN FOTO LINGKARAN LAMA DENGAN INI -->
+      <!-- Foto Profil Efek Tetesan Air 3D dengan Tepi Blur Menyatu -->
+      <div class="relative w-28 h-28 flex items-center justify-center">
+        <!-- Riak air halus di latar belakang -->
+        <div class="water-drop-ripple absolute inset-1.5 rounded-full border border-white/15 blur-[2px] pointer-events-none" aria-hidden="true"></div>
+
+        <!-- Wadah Tetesan Air 3D -->
+        <div class="water-drop-container relative w-full h-full overflow-hidden">
+          <img src="gambar.jpeg" alt="Dzaky Ramadhan" class="water-drop-feathered-photo w-full h-full object-cover scale-105">
+          <div class="water-drop-3d-sheen absolute inset-0 rounded-full pointer-events-none"></div>
         </div>
-        <div class="absolute inset-0 rounded-full border-2 border-brand-400 animate-ping opacity-20"></div>
       </div>
 
       <!-- Teks Sambutan -->
@@ -298,16 +424,20 @@
       <a href="#home" class="flex items-center gap-2.5 overflow-hidden group">
         <!-- Logo Default saat posisi di paling atas -->
         <div id="nav-default-brand" class="flex items-center gap-2 transition-all duration-500">
-          <div class="w-8 h-8 rounded-full overflow-hidden shrink-0 border border-brand-500 shadow-sm">
-            <img src="gambar.jpeg" alt="Dzaky" class="w-full h-full object-cover">
+          <!-- GANTI 3 BARIS FOTO LAMA DENGAN INI -->
+          <div class="water-drop-nav-mini relative w-9 h-9 overflow-hidden shrink-0">
+            <img src="gambar.jpeg" alt="Dzaky" class="w-full h-full object-cover scale-105">
+            <div class="water-drop-3d-sheen absolute inset-0 rounded-full pointer-events-none"></div>
           </div>
+
           <span class="text-xl font-extrabold text-white tracking-tight">Dzaky<span class="text-brand-500">.</span></span>
         </div>
 
         <!-- Mini Profil Lengkap (Muncul otomatis saat di-scroll melewati Hero) -->
         <div id="nav-scrolled-profile" class="hidden opacity-0 -translate-y-2 items-center gap-2.5 transition-all duration-500">
-          <div class="w-9 h-9 rounded-full overflow-hidden shrink-0 border-2 border-brand-500 shadow-[0_0_12px_rgba(2,132,199,0.5)]">
-            <img src="gambar.jpeg" alt="Dzaky Ramadhan" class="w-full h-full object-cover">
+          <div class="water-drop-nav-mini relative w-10 h-10 overflow-hidden shrink-0">
+            <img src="gambar.jpeg" alt="Dzaky Ramadhan" class="w-full h-full object-cover scale-105">
+            <div class="water-drop-3d-sheen absolute inset-0 rounded-full pointer-events-none"></div>
           </div>
           <div class="leading-tight truncate">
             <p class="text-xs md:text-sm font-bold text-white truncate">Dzaky Ramadhan Abdul Syafiq</p>
@@ -349,16 +479,64 @@
   <div class="max-w-4xl mx-auto pt-24 pb-16 px-4 md:px-6 space-y-16">
 
     <!-- 1. HERO SECTION -->
-    <section id="home" class="pt-6 fade-up">
+    <section id="home" class="relative pt-6 fade-up">
+      
+      <!-- EFEK LATAR BELAKANG PROFIL (Flowing Liquid Waves & Dew Particles) -->
+      <div class="hero-bg-fade-mask absolute -inset-x-8 -top-10 -bottom-8 pointer-events-none overflow-hidden -z-10" aria-hidden="true">
+        
+        <!-- Pendar Cahaya Lembut di Pusat Profil -->
+        <div class="absolute top-6 left-1/3 w-72 h-72 bg-brand-600/15 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-2 right-1/4 w-64 h-64 bg-indigo-500/15 rounded-full blur-3xl"></div>
+
+        <!-- Gelombang Cahaya Cair (SVG Looping Mulus) -->
+        <svg class="hero-wave-layer-1 absolute bottom-0 left-0 w-[200%] h-44 opacity-30" viewBox="0 0 1440 320" preserveAspectRatio="none">
+          <defs>
+            <linearGradient id="liquidWaveGrad1" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#0284c7" stop-opacity="0.1" />
+              <stop offset="50%" stop-color="#38bdf8" stop-opacity="0.45" />
+              <stop offset="100%" stop-color="#6366f1" stop-opacity="0.1" />
+            </linearGradient>
+          </defs>
+          <path fill="url(#liquidWaveGrad1)" d="M0,192L80,186.7C160,181,320,171,480,181.3C640,192,800,224,960,218.7C1120,213,1280,171,1360,149.3L1440,128L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z"></path>
+        </svg>
+
+        <svg class="hero-wave-layer-2 absolute bottom-2 left-0 w-[200%] h-40 opacity-25" viewBox="0 0 1440 320" preserveAspectRatio="none">
+          <defs>
+            <linearGradient id="liquidWaveGrad2" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#6366f1" stop-opacity="0.05" />
+              <stop offset="50%" stop-color="#818cf8" stop-opacity="0.4" />
+              <stop offset="100%" stop-color="#0ea5e9" stop-opacity="0.05" />
+            </linearGradient>
+          </defs>
+          <path fill="url(#liquidWaveGrad2)" d="M0,224L80,213.3C160,203,320,181,480,176C640,171,800,181,960,197.3C1120,213,1280,235,1360,245.3L1440,256L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z"></path>
+        </svg>
+
+        <!-- Partikel Embun Bercahaya Melayang ke Atas -->
+        <span class="hero-dew-particle absolute bottom-12 left-[14%] w-2 h-2 rounded-full bg-sky-300/60 blur-[1px]" style="--dur: 7s; --delay: 0s;"></span>
+        <span class="hero-dew-particle absolute bottom-8 left-[32%] w-1.5 h-1.5 rounded-full bg-indigo-300/60 blur-[0.5px]" style="--dur: 9s; --delay: 2s;"></span>
+        <span class="hero-dew-particle absolute bottom-16 left-[52%] w-2.5 h-2.5 rounded-full bg-sky-400/40 blur-[1.5px]" style="--dur: 10s; --delay: 1s;"></span>
+        <span class="hero-dew-particle absolute bottom-10 left-[70%] w-1.5 h-1.5 rounded-full bg-cyan-300/60 blur-[0.5px]" style="--dur: 8s; --delay: 3.5s;"></span>
+        <span class="hero-dew-particle absolute bottom-14 left-[86%] w-2 h-2 rounded-full bg-indigo-400/50 blur-[1px]" style="--dur: 9.5s; --delay: 1.5s;"></span>
+      </div>
+
       <!-- Profil 3D Lingkaran Besar & Nama di Samping -->
       <div id="hero-profile-card" class="flex flex-col sm:flex-row items-center sm:items-center gap-5 sm:gap-7 mb-8 transition-all duration-500">
-        <!-- Lingkaran Foto 3D -->
-        <div class="avatar-3d-wrapper relative shrink-0">
-          <div class="w-28 h-28 md:w-32 md:h-32 rounded-full overflow-hidden border-[3px] border-brand-500/80 avatar-3d-circle bg-slate-800">
-            <img src="gambar.jpeg" alt="Dzaky Ramadhan Abdul Syafiq" class="w-full h-full object-cover">
+        <!-- Foto Profil Efek Tetesan Air 3D dengan Tepi Blur Menyatu -->
+        <div class="relative shrink-0 w-32 h-32 md:w-36 md:h-36 flex items-center justify-center">
+          <!-- Riak air halus di latar belakang -->
+          <div class="water-drop-ripple absolute inset-2 rounded-full border border-sky-400/25 blur-[2px] pointer-events-none" aria-hidden="true"></div>
+
+          <!-- Wadah Tetesan Air 3D (Berubah bentuk cair & melayang halus) -->
+          <div class="water-drop-container relative w-full h-full overflow-hidden">
+            <!-- Foto dengan tepi samping yang memudar lembut (Feathered Blur Edge) -->
+            <img src="gambar.jpeg" alt="Dzaky Ramadhan Abdul Syafiq" class="water-drop-feathered-photo w-full h-full object-cover scale-105">
+            
+            <!-- Lapisan kilau kaca/air 3D cembung -->
+            <div class="water-drop-3d-sheen absolute inset-0 rounded-full pointer-events-none"></div>
           </div>
+
           <!-- Indikator Status Aktif -->
-          <span class="absolute bottom-1.5 right-1.5 w-4 h-4 rounded-full bg-emerald-400 border-2 border-slate-900 shadow-md" title="Active Student"></span>
+          <span class="absolute bottom-3 right-3 w-3.5 h-3.5 rounded-full bg-emerald-400 border-2 border-slate-900 shadow-[0_0_10px_rgba(52,211,153,0.8)] z-10" title="Active Student"></span>
         </div>
 
         <!-- Nama Lengkap & Universitas di Samping -->
